@@ -293,6 +293,8 @@ def demote(user):
 def checkin(username):
     if username == current_user.username or current_user.check_admin:
         user = load_user(username)
+        if user.inshop == 1:
+            return redirect(url_for('index'))
         now = datetime.datetime.now()
         minutenow = minutetime(now)
         user.check_in(minutenow)
