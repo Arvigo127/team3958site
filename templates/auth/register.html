@@ -1,0 +1,16 @@
+{% extends 'main-page.html' %}
+<!--tells it which blocks to replace-->
+
+{% block header %} <!--good to put title in header so it sets both to the same thing-->
+  <h1>{% block title %}Register{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <form method="post">
+    <label for="username">Username</label>
+    <input name="username" id="username" required>
+    <label for="password">Password</label>
+    <input type="password" name="password" id="password" required>
+    <input type="submit" value="Register">
+  </form>
+{% endblock %}

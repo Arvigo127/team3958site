@@ -1,0 +1,32 @@
+{% extends "main-page.html" %}
+
+{% block title %}Login Code {%endblock%}
+{% block header %}Team 3958{% endblock %}
+
+
+{% block content %}
+<div class='text-center'>
+
+    <h1>Change Time</h1>
+    <div class="container">
+        <div class="row">
+            {% if error %}
+                <div class="alert alert-warning" role="alert">Invalid Input</div>
+            {% endif %}
+            <form action="." method="POST">
+              <div class="form-group">
+                <label for="targethours">Desired amount of hours:</label>
+                <input class="form-control" id="targethours" name="targethours" placeholder="Enter the desired amount of hours">
+              </div>
+              <div class="form-group">
+                <label for="targetminutes">Desired amount of minutes:</label>
+                <input class="form-control" id="targetminutes" name="targetminutes" placeholder="Enter your desired amount of minutes">
+              </div>
+              <button type="submit" class="btn btn-success">Confirm</button>
+            </form>
+        </div>
+
+    </div>
+
+</div>
+{%endblock%}

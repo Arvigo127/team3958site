@@ -1,0 +1,53 @@
+{% extends "main-page.html" %}
+
+{% block title %}Admin Controls{%endblock%}
+
+{% block header %}Team 3958{% endblock %}
+
+{%block content%}
+    <h1>Admin Control Panel</h1>
+    <div class="panel-group">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" href="#collapse1">Users</a>
+          </h4>
+        </div>
+        <div id="collapse1" class="panel-collapse collapse">
+          <ul class="list-group">
+            {% for i in users %}
+                <div >
+                    <li class='list-group-item'><b>{{i.username}}</b> has {{i.hours | round}}, and is currently {% if i.inshop == 1 %}<span style="color:green">in</span>{%endif%}
+                        {% if i.inshop == 0 %}<span style="color:red">out of</span>{%endif%} the shop.
+                        <div style="float:right;">
+                        {% if current_user.username != i.username %}
+                            {% if i.check_admin() %}
+                                <a href='{{ url_for("demote", user = i.get_id()) }}' class='btn btn-danger btn-sm' role='button' >Remove Admin</a>
+                            {% endif %}
+                            {% if not i.check_admin() %}
+                                <a href='{{ url_for("elevate", user = i.get_id()) }}' class='btn btn-success btn-sm' role='button' style='text-align:right'>Make Admin</a>
+                            {% endif %}
+                        {% endif %}
+                        {% if i.inshop == 1 %}
+                            <a href='{{ url_for("checkout", username = i.get_id()) }}' class='btn btn-danger btn-sm' role='button' >Check Out</a>
+                        {% endif %}
+                        {% if i.inshop == 0 %}
+                            <a href='{{ url_for("checkin", username = i.get_id()) }}' class='btn btn-success btn-sm' role='button' >Check In</a>
+                        {% endif %}
+                        <a href='{{ url_for("changehours", username = i.get_id()) }}' class='btn btn-info btn-sm' role='button' >Change Hours</a>
+                        <a href='{{ url_for("changepassword", username = i.get_id()) }}' class='btn btn-info btn-sm' role='button' >Change Password</a>
+                        <a href='{{ url_for("delete", username = i.get_id()) }}' class='btn btn-danger btn-sm' role='button' >Delete User</a>
+                        </div>
+                    </li>
+                </div>
+            {% endfor%}
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+        <a href="{{ url_for('qrcode', requested=current_user.username) }}" class="btn btn-info" role="button">Generate Login Code</a>
+        <a href="{{ url_for('checkallout') }}" class="btn btn-info" role="button">Check All Out</a>
+        <a href="#" class="btn btn-info" role="button">Link Button</a>
+    </div>
+{%endblock%}

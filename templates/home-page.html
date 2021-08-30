@@ -1,0 +1,23 @@
+{% extends "main-page.html" %}
+
+{%block header%}Home{%endblock%}
+{%block title%}Home{%endblock%}
+{%block content%}
+    {% if current_user.is_authenticated %}
+        <h1>logged in, hello {{ user.username }} </h1>
+        <h3>You have {{ roundedtime }} hours</h3>
+        {% if user.inshop == 1 %}
+            <h3>You are in the shop</h3>
+            <a href='{{ url_for("checkout", username = current_user.username) }}' class='btn btn-danger btn-sm' role='button' style='text-align:right'>Leave</a>
+        {% endif %}
+        {% if user.inshop == 0 %}
+            <h3>You are not checked in. Scan the QR code to check in</h3>
+        {% endif %}
+
+    {% endif %}
+
+    {% if not current_user.is_authenticated %}
+        <h1>not logged in </h1>
+    {% endif %}
+
+{%endblock%}

@@ -1,0 +1,42 @@
+{% extends "main-page.html" %}
+
+{% block title %}Login Code {%endblock%}
+{% block header %}Team 3958{% endblock %}
+
+
+{% block content %}
+<div class='text-center'>
+    <h1>QR Login</h1>
+    {% if current_user.is_authenticated %}
+        <h3>Hello {{current_user.username}}</h3>
+        <a href='{{ url_for("checkin", username=current_user.username) }}' class='btn btn-success' role='button' style='text-align:right'>Check In</a>
+    {% endif %}
+
+    {% if not current_user.is_authenticated %}
+        <div class="container">
+
+            <div class="row">
+                {% if error %}
+                    <div class="alert alert-warning" role="alert">Incorrect username or password</div>
+                {% endif %}
+                <form action="." method="POST">
+                  <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input class="form-control" id="username" name="username" placeholder="Enter your username">
+                  </div>
+                  <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password">
+                  </div>
+                  <button type="submit" class="btn btn-success">Log in</button>
+                </form>
+            </div>
+
+        </div>
+    {% endif %}
+</div>
+{%endblock%}
+
+
+
+
