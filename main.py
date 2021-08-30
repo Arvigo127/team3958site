@@ -223,7 +223,7 @@ def qrlogin(requested):
 @app.route("/changepassword/<username>/", methods = ["GET", "POST"])
 @login_required
 def changepassword(username):
-    if not current_user.check_admin:
+    if not current_user.check_admin():
         return redirect(url_for('index'))
     if request.method == "GET":
         return render_template('changepassword.html', error=False)
@@ -301,7 +301,7 @@ def checkin(username):
         now = datetime.datetime.now()
         minutenow = minutetime(now)
         user.check_in(minutenow)
-        if current_user.check_admin:
+        if current_user.check_admin():
             return redirect(url_for('admin'))
 
         return redirect(url_for('index'))
@@ -347,7 +347,7 @@ def checkallout():
 @app.route("/<username>/changehours/", methods=['GET', 'POST'])
 @login_required
 def changehours(username):
-    if not current_user.check_admin:
+    if not current_user.check_admin():
         return redirect(url_for('index'))
     if request.method == 'GET':
         return render_template("changehours.html", error=False)
@@ -366,7 +366,7 @@ def changehours(username):
 @app.route("/<username>/delete/")
 @login_required
 def delete(username):
-    if not current_user.check_admin:
+    if not current_user.check_admin():
         return redirect(url_for('index'))
     user = load_user(username)
     if username == current_user.username:
@@ -389,7 +389,7 @@ def confirm():
 @app.route('/nuclearoption/')
 @login_required
 def nuclearoption():
-    if not current_user.check_admin:
+    if not current_user.check_admin():
         return redirect(url_for('index'))
     users=User.query.all()
     for i in users:
