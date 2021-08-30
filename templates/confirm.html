@@ -1,0 +1,14 @@
+{% extends "main-page.html" %}
+
+{%block header%}Team 3958{%endblock%}
+{%block title%}Confirm{%endblock%}
+{%block content%}
+    <h1>WARNING: Wipe Data will permanently affect user data!</h1>
+    <p>Admin accounts will not be affected by Wipe Data, but all other accounts will be gone irreversably. Proceed with caution</p>
+    <div class="container" style="white-space: nowrap;">
+
+        <a href='{{ url_for("nuclearoption") }}' class='btn btn-danger' role='button' style='display: inline-block;'>Wipe Data</a>
+        <a href='{{ url_for("admin") }}' class='btn btn-info' role='button' style='display: inline-block;'>Cancel</a>
+
+    </div>
+{%endblock%}

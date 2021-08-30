@@ -48,6 +48,6 @@
     <div class="container">
         <a href="{{ url_for('qrcode', requested=current_user.username) }}" class="btn btn-info" role="button">Generate Login Code</a>
         <a href="{{ url_for('checkallout') }}" class="btn btn-info" role="button">Check All Out</a>
-        <a href="#" class="btn btn-info" role="button">Link Button</a>
+        <a href="{{ url_for('confirm') }}" class="btn btn-danger" role="button">Wipe Data</a>
     </div>
 {%endblock%}

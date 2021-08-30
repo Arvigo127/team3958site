@@ -142,11 +142,15 @@ class Comment(db.Model):
 #home page
 @app.route("/")
 def index():
+    total_hours = 0
+    users=User.query.all()
+    for i in users:
+        total_hours += i.hours
     if not current_user.is_authenticated:
-        return render_template("home-page.html")
+        return render_template("home-page.html", total_hours=total_hours)
     user=User.query.filter_by(username=current_user.username).first()
     roundedtime = rounddowntime(user.hours)
-    return render_template("home-page.html", user=user, roundedtime=roundedtime)
+    return render_template("home-page.html", user=user, roundedtime=roundedtime, total_hours=total_hours)
 
 
 
@@ -365,4 +369,23 @@ def delete(username):
     db.session.delete(user)
     db.session.commit()
 
+    return redirect(url_for('admin'))
+
+
+@app.route("/confirm/")
+@login_required
+def confirm():
+    return render_template("confirm.html")
+
+@app.route('/nuclearoption/')
+@login_required
+def nuclearoption():
+    if not current_user.check_admin:
+        return redirect(url_for('index'))
+    users=User.query.all()
+    for i in users:
+        if i.admin == 0:
+            db.session.delete(i)
+
+    db.session.commit()
     return redirect(url_for('admin'))

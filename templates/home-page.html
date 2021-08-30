@@ -1,6 +1,6 @@
 {% extends "main-page.html" %}
 
-{%block header%}Home{%endblock%}
+{%block header%}Team 3958{%endblock%}
 {%block title%}Home{%endblock%}
 {%block content%}
     {% if current_user.is_authenticated %}
@@ -19,7 +19,11 @@
     {% endif %}
 
     {% if not current_user.is_authenticated %}
-        <h1>not logged in </h1>
+        <div class='container' style="padding:5em">
+            <h1 style="text-align:center;">Team 3958 has worked a total of:</h1>
+            <h1 style="text-align:center;">{{ total_hours | round }}</h1>
+            <h1 style="text-align:center;">During this year's season</h1>
+        </div>
     {% endif %}
 
 {%endblock%}
