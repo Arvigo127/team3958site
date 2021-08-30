@@ -194,6 +194,8 @@ def register():
 
     return redirect(url_for("login"))
 
+
+#logs a user out
 @app.route("/logout/")
 @login_required
 def logout():
@@ -237,6 +239,7 @@ def changepassword(username):
     user.change_password(password)
 
     return redirect(url_for('admin'))
+
 
 
 
@@ -359,6 +362,7 @@ def changehours(username):
     return redirect(url_for('admin'))
 
 
+#deletes an account of the given username
 @app.route("/<username>/delete/")
 @login_required
 def delete(username):
@@ -374,11 +378,14 @@ def delete(username):
     return redirect(url_for('admin'))
 
 
+#just a confirm page for the wipe data admin function
 @app.route("/confirm/")
 @login_required
 def confirm():
     return render_template("confirm.html")
 
+
+#deletes every account except administrators
 @app.route('/nuclearoption/')
 @login_required
 def nuclearoption():
