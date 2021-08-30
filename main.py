@@ -45,6 +45,17 @@ def rounddowntime(time):
     timestr = str(hours) + " hours, " + str(minutes) + " minutes"
     return timestr
 
+@app.template_filter('twelvehour')
+def twelvehourtime(time):
+    hours = math.floor(time/60)
+    minutes = time % 60
+    timeofday = "am"
+    if hours > 12:
+        hours -= 12
+        timeofday = "pm"
+    timestamp = str(hours) + ":" + str(minutes) + timeofday #who needs strftime anyways...
+    return timestamp
+
 
 
 #user data
