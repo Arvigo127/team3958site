@@ -192,7 +192,9 @@ def register():
     db.session.add(user)
     db.session.commit()
 
-    return redirect(url_for("login"))
+    login_user(user)
+
+    return redirect(url_for("index"))
 
 
 #logs a user out
