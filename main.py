@@ -355,9 +355,13 @@ def changehours(username):
         return render_template("changehours.html", error=False)
 
     user = load_user(username)
-    th = int(request.form['targethours'])
-    tm = int(request.form['targetminutes'])
-    total_target = (th*60)+tm
+    th = request.form['targethours']
+    tm = request.form['targetminutes']
+    if th == '' or tm == '' :
+        return render_template('changehours.html', error=True)
+
+
+    total_target = (int(th)*60)+int(tm)
 
     user.change_hours(total_target)
 
