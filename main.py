@@ -188,6 +188,9 @@ def register():
     if load_user(username) is not None:
         return render_template("register_page.html", error=True)
 
+    if username.find("/") != -1:
+        return render_template("register_page.html", error=True)
+
     user = User(username=username, password_hash=generate_password_hash(password), admin=0, hours=0, inshop=0, whenarrived=0)
     db.session.add(user)
     db.session.commit()
