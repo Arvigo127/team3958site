@@ -171,8 +171,8 @@ def login():
 
     return redirect(url_for('index'))
 
-@app.route("/register/", methods=['GET', 'POST'])
-def register():
+@app.route("/register/<redirectCheckIn>/", methods=['GET', 'POST'])
+def register(redirectCheckIn):
     if request.method == "GET":
         return render_template("register_page.html", error=False)
 
@@ -196,6 +196,9 @@ def register():
     db.session.commit()
 
     login_user(user)
+
+    if(redirectCheckIn=="True"):
+        return redirect(url_for("checkin", username=username))
 
     return redirect(url_for("index"))
 

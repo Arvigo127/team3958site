@@ -28,8 +28,11 @@
                     <label for="password">Password:</label>
                     <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password">
                   </div>
-                  <button type="submit" class="btn btn-success">Log in</button>
+                  <div style='float:left'>
+                  <button type="submit" class="btn btn-success">Log in</button><a href='{{ url_for("register", redirectCheckIn="True") }}' style="padding-left:30px">Don't have an account? Register</a>
+                  </div>
                 </form>
+
             </div>
 
         </div>
