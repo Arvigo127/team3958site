@@ -363,9 +363,13 @@ def changehours(username):
     user = load_user(username)
     th = request.form['targethours']
     tm = request.form['targetminutes']
-    if th == '' or tm == '' :
+    if (len(tm) != 0 and not tm.isdigit()) or (len(th) != 0 and not th.isdigit()):
         return render_template('changehours.html', error=True)
 
+    if th == "":
+        th = "0"
+    if tm == "":
+        tm = "0"
 
     total_target = (int(th)*60)+int(tm)
 
